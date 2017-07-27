@@ -61,7 +61,7 @@ def output_ping(http, baseurl, extended):
         else:
             okCores.append(k)
 
-        outputE += '\n{} - Status: {} | size={}B numdocs={} uptime={}s'.format(k, status['status'], size, numdocs, uptime)
+        outputE += '\n{} - Status: {} | {}_size={}B {}_numdocs={} {}_uptime={}s'.format(k, status['status'], k, size, k, numdocs, k, uptime)
 
     if state == 2:
         print 'CRITICAL: couldn\'t ping {} cores'.format(','.join(nokCores))
@@ -136,10 +136,10 @@ def output_replication_slave(http, baseurl, extended, warn, critical):
         else:
             okCores.append(k)
 
-        outputE += '\n{}\t - isSlave: {}\treplicationEnabled: {}\tSlaveIndex: {}\tMasterIndex: {}\tSlaveGen: {}\tMasterGen: {} | slaveindex={} masterindex={} slavegen={} mastergen={}'.format(
+        outputE += '\n{}\t - isSlave: {}\treplicationEnabled: {}\tSlaveIndex: {}\tMasterIndex: {}\tSlaveGen: {}\tMasterGen: {} | {}_slaveindex={} {}_masterindex={} {}_slavegen={} {}_mastergen={}'.format(
                 k, slave, enabled,
                 slaveIndex, masterIndex, slaveGen, masterGen,
-                slaveIndex, masterIndex, slaveGen, masterGen)
+                k, slaveIndex, k, masterIndex, k, slaveGen, k, masterGen)
 
     if state == 2:
         print 'CRITICAL: {} are not slaves/replication disabled'.format(','.join(nokCores))
@@ -170,7 +170,7 @@ def output_compare(http, baseurl, baseurl2, extended):
 
     state = 0
     if len(intersect) > 0:
-        print 'CRITICAL: {} core(s) is/are not on both solr servers'.format(','.join(intersect))
+        print 'CRITICAL: {} core(s) is/are not on both solr servers | count={}'.format(','.join(intersect), len(intersect))
         state = 2
     else:
         print 'OK: all cores exist on both servers'

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import urllib3
 import json
 import argparse
@@ -185,7 +187,7 @@ def main():
     parser.add_argument('-t', '--timeout', help='timeout', default=15, type=int)
     parser.add_argument('--extended', help='Add extended info where possible', action='store_true')
     parser.add_argument('-P', '--ping', help='Ping the solr cores', action='store_true')
-    parser.add_argument('-R', '--replication', help='Ping the solr cores', default='slave')
+    parser.add_argument('-r', '--replication', help='Ping the solr cores', default='slave')
     parser.add_argument('-w', '--warning', help='Warning threshold for replication', default=1, type=int)
     parser.add_argument('-c', '--critical', help='Critical threshold for replication', default=3, type=int)
     parser.add_argument('-C', '--compare', help='Compare cores on 2 solr servers', action='store_true')

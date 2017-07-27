@@ -173,7 +173,7 @@ def output_compare(http, baseurl, baseurl2, extended):
         print 'CRITICAL: {} core(s) is/are not on both solr servers | count={}'.format(','.join(intersect), len(intersect))
         state = 2
     else:
-        print 'OK: all cores exist on both servers'
+        print 'OK: all cores exist on both servers | count={}'.format(len(intersect))
        
     sys.exit(state)
 

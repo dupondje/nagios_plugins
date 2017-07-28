@@ -200,15 +200,24 @@ def main():
     baseurl = 'http://{}:{}/{}'.format(args.host, args.port, args.path)
     http = urllib3.PoolManager(timeout=args.timeout, retries=False)
 
-    if args.ping:
-        output_ping(http, baseurl, args.extended)
-    elif args.replication == 'master':
-        output_replication_master(http, baseurl, args.extended)
-    elif args.replication == 'slave' and not args.compare:
-        output_replication_slave(http, baseurl, args.extended, args.warning, args.critical)
-    elif args.compare:
-        baseurl2 = 'http://{}:{}/{}'.format(args.host2, args.port2, args.path2)
-        output_compare(http, baseurl, baseurl2, args.extended)
+    try:
+        if args.ping:
+            output_ping(http, baseurl, args.extended)
+        elif args.replication == 'master':
+            output_replication_master(http, baseurl, args.extended)
+        elif args.replication == 'slave' and not args.compare:
+            output_replication_slave(http, baseurl, args.extended, args.warning, args.critical)
+        elif args.compare:
+            baseurl2 = 'http://{}:{}/{}'.format(args.host2, args.port2, args.path2)
+            output_compare(http, baseurl, baseurl2, args.extended)
+    except KeyError as e:
+        print 'CRITICAL: unable to parse JSON. Possible SOLR issues!'
+        print e
+        sys.exit(2)
+    except Exception as e:
+        print 'UNKNOWN: exception when running check.'
+        print e
+        sys.exit(3)
 
 if __name__ == "__main__":
     main()

@@ -143,6 +143,8 @@ def output_replication_slave(http, baseurl, extended, warn, critical):
 
     if state == 2:
         print 'CRITICAL: {} are not slaves/replication disabled'.format(','.join(nokCores))
+    elif state == 1:
+        print 'WARNING: {} is delayed!'.format(','.join(nokCores))
     else:
         print 'OK: {} are all slaves & replicating!'.format(','.join(okCores))
 
